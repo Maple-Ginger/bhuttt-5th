@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>渤海大学乒乓球队第五届总结大赛</title>
+    <style>
+        :root {
+            --primary-color: #d32f2f; /* 乒乓球经典的红色 */
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+        }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 { margin: 0; font-size: 24px; letter-spacing: 2px; }
+        header h2 { margin: 10px 0 0; font-size: 18px; font-weight: normal; }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .card h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        /* 倒计时样式 */
+        #countdown-timer {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #555;
+            margin-top: 15px;
+        }
+        .time-box span {
+            display: block;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th { background-color: #f9f9f9; }
+        /* 按钮样式 */
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        .btn:hover { background-color: #b71c1c; }
+        .notice { font-size: 14px; color: #888; text-align: center; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>渤海大学乒乓球队</h1>
+    <h2>第五届总结大赛官方主页</h2>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h3>⏳ 距大赛开幕还有</h3>
+        <div id="countdown-timer">
+            <div class="time-box"><span id="days">00</span>天</div>
+            <div class="time-box"><span id="hours">00</span>时</div>
+            <div class="time-box"><span id="minutes">00</span>分</div>
+            <div class="time-box"><span id="seconds">00</span>秒</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>📋 抽签结果与对阵表</h3>
+        <p class="notice">（暂未抽签，结果将于抽签仪式后公布）</p>
+        </div>
+
+    <div class="card">
+        <h3>🏆 成绩实时公布</h3>
+        <p class="notice">（比赛尚未开始，敬请期待）</p>
+        </div>
+
+    <div class="card">
+        <h3>📷 赛事图片直播</h3>
+        <p style="text-size: 14px; color: #666; text-align: center;">点击下方按钮，直达赛事精彩瞬间</p>
+        <a href="#" class="btn" target="_blank">进入图片直播相册</a>
+    </div>
+</div>
+
+<script>
+    // 设置比赛开幕时间：2026年6月6日 早上8:30
+    const countDownDate = new Date("Jun 6, 2026 08:30:00").getTime();
+
+    const x = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = ('0' + hours).slice(-2);
+        document.getElementById("minutes").innerHTML = ('0' + minutes).slice(-2);
+        document.getElementById("seconds").innerHTML = ('0' + seconds).slice(-2);
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown-timer").innerHTML = "比赛已开始，祝大家取得好成绩！";
+        }
+    }, 1000);
+</script>
+
+</body>
+</html>
