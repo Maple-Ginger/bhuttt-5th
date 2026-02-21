@@ -6,149 +6,205 @@
     <title>渤海大学乒乓球队第五届总结大赛</title>
     <style>
         :root {
-            --primary-color: #d32f2f; /* 乒乓球经典的红色 */
-            --bg-color: #f4f4f9;
-            --card-bg: #ffffff;
-            --text-main: #333333;
+            --primary-color: #e53935; /* 现代感的高级红 */
+            --primary-dark: #b71c1c;
+            --bg-color: #f4f7f6;
+            --text-main: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
-        body {
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; padding-top: 70px; }
+
+        /* 顶部悬浮导航栏 */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 1000;
+            display: flex; justify-content: center; padding: 0 20px;
         }
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .nav-links { display: flex; gap: 20px; padding: 15px 0; overflow-x: auto; white-space: nowrap; }
+        .nav-item {
+            color: var(--text-main); text-decoration: none; font-weight: bold;
+            font-size: 16px; padding: 8px 16px; border-radius: 20px;
+            cursor: pointer; transition: var(--transition);
         }
-        header h1 { margin: 0; font-size: 24px; letter-spacing: 2px; }
-        header h2 { margin: 10px 0 0; font-size: 18px; font-weight: normal; }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 15px;
+        .nav-item:hover, .nav-item.active { background-color: var(--primary-color); color: var(--white); }
+
+        /* 头部视觉区 */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--white); text-align: center; padding: 60px 20px;
+            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-bottom: -30px;
         }
-        .card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        .hero h1 { font-size: 2.2rem; margin-bottom: 10px; font-weight: 800; letter-spacing: 2px;}
+        .hero p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* 内容区容器 */
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        /* 页面切换逻辑（隐藏不活跃的页面） */
+        .page-section { display: none; animation: fadeIn 0.5s ease; }
+        .page-section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 现代感卡片 */
+        .card { background: var(--white); border-radius: 20px; padding: 30px; box-shadow: var(--shadow); margin-bottom: 30px; }
+        .card-header { font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 20px; border-left: 5px solid var(--primary-color); padding-left: 15px; }
+
+        /* 倒计时专用样式 */
+        .countdown { display: flex; justify-content: center; gap: 15px; text-align: center; margin-top: 20px;}
+        .time-box { background: var(--bg-color); padding: 15px; border-radius: 15px; min-width: 80px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);}
+        .time-box span { display: block; font-size: 2.5rem; font-weight: 900; color: var(--primary-color); }
+        .time-box .label { font-size: 0.9rem; color: var(--text-light); }
+
+        /* 二级菜单（单项赛/团体赛切换） */
+        .sub-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+        .sub-btn {
+            background: var(--bg-color); border: none; padding: 10px 25px;
+            border-radius: 30px; font-size: 15px; font-weight: bold;
+            color: var(--text-main); cursor: pointer; transition: var(--transition);
         }
-        .card h3 {
-            color: var(--primary-color);
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        /* 倒计时样式 */
-        #countdown-timer {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #555;
-            margin-top: 15px;
-        }
-        .time-box span {
-            display: block;
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-        /* 表格样式 */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th { background-color: #f9f9f9; }
-        /* 按钮样式 */
-        .btn {
-            display: block;
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 12px 0;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 15px;
-            transition: background 0.3s;
-        }
-        .btn:hover { background-color: #b71c1c; }
-        .notice { font-size: 14px; color: #888; text-align: center; }
+        .sub-btn.active { background: var(--primary-color); color: var(--white); box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3); }
+        .sub-content { display: none; animation: fadeIn 0.4s ease; }
+        .sub-content.active { display: block; }
+
+        /* 表格现代化 */
+        table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 10px; overflow: hidden; }
+        th, td { padding: 15px; text-align: center; border-bottom: 1px solid #eee; }
+        th { background-color: var(--primary-color); color: var(--white); font-weight: 600; }
+        tr:hover td { background-color: #fcfcfc; }
+
+        /* 按钮 */
+        .action-btn { display: inline-block; background: var(--primary-color); color: var(--white); padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: var(--transition); text-align: center; width: 100%; margin-top: 20px; box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);}
+        .action-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* 占位提示语 */
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-light); }
+        .empty-state span { font-size: 3rem; display: block; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-<header>
+<nav class="navbar">
+    <div class="nav-links">
+        <a class="nav-item active" onclick="switchPage('home')">首页</a>
+        <a class="nav-item" onclick="switchPage('draw')">抽签对阵</a>
+        <a class="nav-item" onclick="switchPage('results')">成绩公布</a>
+        <a class="nav-item" onclick="switchPage('photos')">图片直播</a>
+    </div>
+</nav>
+
+<header class="hero">
     <h1>渤海大学乒乓球队</h1>
-    <h2>第五届总结大赛官方主页</h2>
+    <p>第五届总结大赛官方主页 | 丙午马年 · 仲夏之约</p>
 </header>
 
 <div class="container">
-    <div class="card">
-        <h3>⏳ 距大赛开幕还有</h3>
-        <div id="countdown-timer">
-            <div class="time-box"><span id="days">00</span>天</div>
-            <div class="time-box"><span id="hours">00</span>时</div>
-            <div class="time-box"><span id="minutes">00</span>分</div>
-            <div class="time-box"><span id="seconds">00</span>秒</div>
+    
+    <div id="home" class="page-section active">
+        <div class="card">
+            <h2 class="card-header">距离大赛开幕还有</h2>
+            <div class="countdown">
+                <div class="time-box"><span id="days">00</span><div class="label">天</div></div>
+                <div class="time-box"><span id="hours">00</span><div class="label">时</div></div>
+                <div class="time-box"><span id="minutes">00</span><div class="label">分</div></div>
+                <div class="time-box"><span id="seconds">00</span><div class="label">秒</div></div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="card-header">大赛简介</h2>
+            <p>欢迎来到渤海大学乒乓球队第五届总结大赛！本次大赛旨在弘扬“薪火相传、团结拼搏”的球队精神。届时新老队友将同台竞技，共同见证球队的成长与辉煌。请通过上方导航栏查看赛事各项动态。</p>
         </div>
     </div>
 
-    <div class="card">
-        <h3>📋 抽签结果与对阵表</h3>
-        <p class="notice">（暂未抽签，结果将于抽签仪式后公布）</p>
-        </div>
+    <div id="draw" class="page-section">
+        <div class="card">
+            <h2 class="card-header">抽签与对阵表</h2>
+            
+            <div class="sub-nav">
+                <button class="sub-btn active" onclick="switchTab('individual')">单项赛</button>
+                <button class="sub-btn" onclick="switchTab('team')">团体赛</button>
+            </div>
 
-    <div class="card">
-        <h3>🏆 成绩实时公布</h3>
-        <p class="notice">（比赛尚未开始，敬请期待）</p>
-        </div>
+            <div id="individual" class="sub-content active">
+                <div class="empty-state">
+                    <span>🏓</span>
+                    <p>单项赛抽签暂未开始，请耐心等待组织者公布结果。</p>
+                </div>
+                </div>
 
-    <div class="card">
-        <h3>📷 赛事图片直播</h3>
-        <p style="text-size: 14px; color: #666; text-align: center;">点击下方按钮，直达赛事精彩瞬间</p>
-        <a href="#" class="btn" target="_blank">进入图片直播相册</a>
+            <div id="team" class="sub-content">
+                <div class="empty-state">
+                    <span>🏆</span>
+                    <p>团体赛抽签正在紧锣密鼓筹备中...</p>
+                </div>
+                </div>
+        </div>
     </div>
+
+    <div id="results" class="page-section">
+        <div class="card">
+            <h2 class="card-header">赛事成绩榜</h2>
+            <div class="empty-state">
+                <span>🏅</span>
+                <p>比赛尚未开始，战鼓即将擂响，敬请期待！</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="photos" class="page-section">
+        <div class="card">
+            <h2 class="card-header">光影记录：赛事图集</h2>
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 20px;">这里记录着赛场上的每一次挥汗与欢呼。</p>
+            <a href="#" target="_blank" class="action-btn">📸 点击进入云端图库直播</a>
+        </div>
+    </div>
+
 </div>
 
 <script>
-    // 设置比赛开幕时间：2026年6月6日 早上8:30
-    const countDownDate = new Date("Jun 6, 2026 08:30:00").getTime();
+    // 1. 页面级导航切换逻辑
+    function switchPage(pageId) {
+        // 移除所有主导航的 active 状态和页面的 active 状态
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
+        
+        // 为当前点击的导航和对应页面加上 active
+        event.target.classList.add('active');
+        document.getElementById(pageId).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-    const x = setInterval(function() {
+    // 2. 抽签页面的二级导航切换逻辑 (单项赛/团体赛)
+    function switchTab(tabId) {
+        document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.sub-content').forEach(content => content.classList.remove('active'));
+        
+        event.target.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    // 3. 倒计时逻辑
+    const countDownDate = new Date("Jun 6, 2026 08:30:00").getTime();
+    const timerInterval = setInterval(function() {
         const now = new Date().getTime();
         const distance = countDownDate - now;
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("days").innerHTML = days;
-        document.getElementById("hours").innerHTML = ('0' + hours).slice(-2);
-        document.getElementById("minutes").innerHTML = ('0' + minutes).slice(-2);
-        document.getElementById("seconds").innerHTML = ('0' + seconds).slice(-2);
-
         if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("countdown-timer").innerHTML = "比赛已开始，祝大家取得好成绩！";
+            clearInterval(timerInterval);
+            document.querySelector('.countdown').innerHTML = "<h3 style='color: var(--primary-color);'>比赛已经燃情开幕！</h3>";
+            return;
         }
+
+        document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24));
+        document.getElementById("hours").innerHTML = ('0' + Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
+        document.getElementById("minutes").innerHTML = ('0' + Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).slice(-2);
+        document.getElementById("seconds").innerHTML = ('0' + Math.floor((distance % (1000 * 60)) / 1000)).slice(-2);
     }, 1000);
 </script>
 
